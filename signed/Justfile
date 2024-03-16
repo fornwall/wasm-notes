@@ -1,0 +1,10 @@
+run: compile
+    echo "# wasm3"
+    echo "how_old 1980 2021" | wasm3 --repl how-old.wasm
+    echo ""
+    echo "# wasmtime"
+    wasmtime --invoke how_old how-old.wasm 1980 2021
+
+compile:
+    wat2wasm -o how-old.wasm how-old.wat
+
