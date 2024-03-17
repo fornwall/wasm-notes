@@ -1,0 +1,22 @@
+browse: compile
+    python3 -c 'import webbrowser; webbrowser.open_new("http://localhost:8080")'
+
+serve:
+    darkhttpd .
+
+format:
+    prettier -w index.html
+
+run: compile
+    echo "# wasm3"
+    echo "how_old" | wasm3 --repl how-old.wasm
+    echo ""
+    echo "# wasmtime"
+    wasmtime --invoke how_old how-old.wasm 1980 2021
+
+objdump: compile
+    wasm-objdump -x hello-log.wasm
+
+compile:
+    wat2wasm -o hello-log.wasm hello-log.wat
+

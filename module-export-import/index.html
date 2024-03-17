@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>WASM Import test</title>
+  </head>
+
+  <body>
+    <script>
+      function fetchAndInstantiate(url, importObject) {
+          return fetch(url).then(response =>
+              response.arrayBuffer()
+          ).then(bytes =>
+              WebAssembly.instantiate(bytes, importObject)
+          ).then(results =>
+              results.instance
+          );
+      }
+
+      const importObject = {
+        imports: {
+          log_func: function(arg) {
+            const msg = "You are this old: " + arg + " years.";
+            console.log(msg);
+            document.querySelector("pre").textContent += msg + "\n";
+          }
+        }
+      };
+
+      fetchAndInstantiate('hello-log.wasm', importObject).then(function(instance) {
+          console.log(instance.exports.log_how_old(2021, 2000));
+      });
+    </script>
+    <pre />
+  </body>
+</html>
