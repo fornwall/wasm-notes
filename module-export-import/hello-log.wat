@@ -1,5 +1,6 @@
 (module
     (func $log (import "imports" "log_func") (param i32))
+    (func $other_log (import "other_imports" "other_log_func") (param i32))
 
     (func $how_old (param $year_now i32) (param $year_born i32) (result i32)
         local.get $year_now
@@ -11,6 +12,11 @@
         local.get $year_born
         call $how_old
         call $log
+
+        local.get $year_now
+        local.get $year_born
+        call $how_old
+        call $other_log
     )
 
     (export "how_old" (func $how_old))

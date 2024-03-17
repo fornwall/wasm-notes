@@ -24,6 +24,13 @@
             console.log(msg);
             document.querySelector("pre").textContent += msg + "\n";
           }
+        },
+        other_imports: {
+          other_log_func: function(arg) {
+            const msg = "From (other_imports): You are this old: " + arg + " years.";
+            console.log(msg);
+            document.querySelector("pre").textContent += msg + "\n";
+          }
         }
       };
 
