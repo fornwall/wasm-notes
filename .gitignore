@@ -1,1 +1,5 @@
 *.wasm
+*.rlib
+*.so
+*.o
+target/
