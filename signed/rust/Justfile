@@ -1,0 +1,13 @@
+run: compile
+    echo "# wasm3"
+    echo "how_old" | wasm3 --repl how-old.wasm
+    echo ""
+    echo "# wasmtime"
+    wasmtime --invoke how_old how-old.wasm
+
+objdump: compile
+    wasm-objdump -x how-old.wasm
+
+compile:
+    rustc --crate-type=cdylib -O --target wasm32-unknown-unknown -C lto=thin -C opt-level=z -C panic=abort how-old.rs -o how-old.wasm
+
