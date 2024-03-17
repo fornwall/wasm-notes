@@ -1,0 +1,2 @@
+desugar:
+    wat-desugar desugar.wat
