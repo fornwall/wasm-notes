@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>WASM Import test</title>
+  </head>
+
+  <body>
+      <div><label for="born">Year born:</label><input id="born" type="number" value="1980"/></label>
+      <div><label for="now">Year now:</label><input id="now" type="number" value="2024"/></label>
+      <button>Compute</button>
+    <script>
+      function fetchAndInstantiate(url, importObject) {
+          return fetch(url).then(response =>
+              response.arrayBuffer()
+          ).then(bytes =>
+              WebAssembly.instantiate(bytes, importObject)
+          ).then(results =>
+              results.instance
+          );
+      }
+
+      function compute(instance) {
+          const yearBorn = parseInt(document.getElementById("born").value);
+          const yearNow = parseInt(document.getElementById("now").value);
+          const age = instance.exports.how_old(yearNow, yearBorn);
+          console.log(`Born=${yearBorn}, now=${yearNow} -> age=${age}`);
+      }
+
+
+      fetchAndInstantiate('how-old.wasm').then(function(instance) {
+          document.querySelector("button").addEventListener("click", () => compute(instance));
+          compute(instance);
+      });
+    </script>
+    <pre />
+  </body>
+</html>

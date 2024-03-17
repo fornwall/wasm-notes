@@ -11,3 +11,12 @@ objdump: compile
 compile:
     wat2wasm -o how-old.wasm how-old.wat
 
+browse: compile
+    python3 -c 'import webbrowser; webbrowser.open_new("http://localhost:8080")'
+
+serve:
+    darkhttpd .
+
+format:
+    prettier -w index.html
+
