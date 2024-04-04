@@ -1,0 +1,18 @@
+inspect: compile
+    node inspect.mjs
+
+objdump: compile
+    wasm-objdump -x fib.wasm
+
+compile:
+    wat2wasm -o fib.wasm fib.wat
+
+browse: compile
+    python3 -c 'import webbrowser; webbrowser.open_new("http://localhost:8080")'
+
+serve:
+    darkhttpd .
+
+format:
+    prettier -w index.html
+

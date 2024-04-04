@@ -1,0 +1,16 @@
+inspect: compile
+    node inspect.mjs
+
+compile:
+    wat2wasm -o dynlink1.wasm dynlink1.wat
+    wat2wasm -o dynlink2.wasm dynlink2.wat
+
+browse: compile
+    python3 -c 'import webbrowser; webbrowser.open_new("http://localhost:8080")'
+
+serve: compile
+    darkhttpd .
+
+format:
+    prettier -w index.html
+
